@@ -58,8 +58,8 @@ function Guestbook()
         # NEVER put the service_role key here. Leave blank to fall back to the
         # in-browser demo. Fill both to go live.
         RawHtml("""<script>window.DEMO_SB = {
-  url: "",  /* e.g. https://YOUR-PROJECT.supabase.co */
-  key: ""   /* the PUBLIC anon key (starts with eyJ...) — never the service_role key */
+  url: "https://azbpaqzypkmfpgqvfjvj.supabase.co",
+  key: "sb_publishable_TUPEKrQp_6CZpT_XeaHYWQ_N9yPZ4G3"  /* PUBLIC publishable key — safe to expose (Supabase says so): the protection is RLS + the add_guestbook/delete_guestbook functions, never the key. NEVER put a secret/service_role key here. */
 };</script>"""),
         Div(:class => "max-w-2xl",
             Span(:class => "badge badge-accent badge-outline mb-3", "real persistence"),
