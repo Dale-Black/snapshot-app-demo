@@ -55,3 +55,28 @@ put your project URL + **anon** key in `window.DEMO_SB` (in
 `src/routes/guestbook.jl`), and you're done. Leave those blank and the page falls back
 to a local-only demo. Don't loosen the table grants or add a broad `insert`/`delete`
 RLS policy — that's what keeps it safe.
+
+## ⚠️ Inline page scripts + the client router (the `__therapy` marker)
+
+Therapy ships a **client router** (View Transitions): clicking a navbar link swaps
+only the `#page-content` region instead of doing a full page load. **Browsers do not
+run `<script>` tags that arrive through that kind of DOM swap.** So a page that wires
+itself up with an inline `<script>` (like the guestbook) will work on a hard refresh
+but be **inert when you navigate to it from another tab** — a confusing "it's dead
+until I reload" bug.
+
+The fix (see `src/routes/guestbook.jl`): put the literal token **`__therapy`** in a
+comment inside your script. The router scans swapped-in content for that token and
+**re-executes** matching scripts. Pair it with a generation counter so any in-flight
+async work from a previous run bails:
+
+```js
+(function(){
+  /* __therapy  ← makes the client router re-run this after a navigation swap */
+  var GEN = (window.__myGen = (window.__myGen || 0) + 1);
+  // ... in async callbacks: if (GEN !== window.__myGen) return;
+})();
+```
+
+Scripts in the persistent shell (header/footer, outside `#page-content`) don't need
+this — they run once and stay. Only per-page inline scripts do.

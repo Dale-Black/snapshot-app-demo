@@ -1,6 +1,21 @@
 function _gb_js()
     raw"""
 (function(){
+  /* ── IMPORTANT for client-side navigation ───────────────────────────────────
+     This Therapy app uses a client router (View Transitions) that swaps only the
+     #page-content region when you click a navbar link — it does NOT reload the
+     page. Browsers do NOT execute <script> tags that arrive via that kind of DOM
+     swap, so an inline page script like this one would silently never run when
+     you navigate here from another tab — the guestbook would look dead until a
+     full refresh.
+
+     The fix is the `__therapy` marker below: the Therapy client router scans
+     swapped-in content for a script containing `__therapy` and re-executes it.
+     The generation counter (window.__gbGen) makes any in-flight async work from a
+     previous run bail, so we never render into a stale (detached) DOM node.
+     (The Snapshot dashboard uses this same pattern.) __therapy
+     ──────────────────────────────────────────────────────────────────────────── */
+  var GEN = (window.__gbGen = (window.__gbGen || 0) + 1);
   var SB = (window.DEMO_SB && window.DEMO_SB.key && window.DEMO_SB.url) ? window.DEMO_SB : null;
   var form=document.getElementById('gb-form'), list=document.getElementById('gb-list');
   var nameI=document.getElementById('gb-name'), msgI=document.getElementById('gb-msg');
@@ -24,7 +39,8 @@ function _gb_js()
   function lsGet(){try{return JSON.parse(localStorage.getItem('gb')||'[]')}catch(e){return[]}}
   function lsAdd(it){var a=lsGet();a.unshift(it);a=a.slice(0,50);localStorage.setItem('gb',JSON.stringify(a));return a;}
   async function load(){
-    if(SB){try{var r=await fetch(SB.url+'/rest/v1/demo_guestbook?select=id,name,message,created_at&order=created_at.desc&limit=50',{headers:{apikey:SB.key,authorization:'Bearer '+SB.key}});if(r.ok){render(await r.json());return;}}catch(e){}}
+    if(SB){try{var r=await fetch(SB.url+'/rest/v1/demo_guestbook?select=id,name,message,created_at&order=created_at.desc&limit=50',{headers:{apikey:SB.key,authorization:'Bearer '+SB.key}});if(GEN!==window.__gbGen)return;if(r.ok){render(await r.json());return;}}catch(e){}}
+    if(GEN!==window.__gbGen)return;
     render(lsGet());
   }
   async function del(id){
