@@ -73,7 +73,11 @@ function Guestbook()
         # add_guestbook/delete_guestbook functions are the protection (see db.sql).
         # NEVER put the service_role key here. Leave blank to fall back to the
         # in-browser demo. Fill both to go live.
-        RawHtml("""<script>window.DEMO_SB = {
+        RawHtml("""<script>/* __therapy — MUST re-run on client-side navigation too, so window.DEMO_SB
+   is set even on the FIRST nav into this page (before any full page load of it).
+   Without this marker the config script would be inserted via the router's DOM
+   swap but never executed, and the guestbook would silently fall back to demo mode. */
+window.DEMO_SB = {
   url: "https://azbpaqzypkmfpgqvfjvj.supabase.co",
   key: "sb_publishable_TUPEKrQp_6CZpT_XeaHYWQ_N9yPZ4G3"  /* PUBLIC publishable key — safe to expose (Supabase says so): the protection is RLS + the add_guestbook/delete_guestbook functions, never the key. NEVER put a secret/service_role key here. */
 };</script>"""),
