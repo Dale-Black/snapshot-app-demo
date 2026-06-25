@@ -53,8 +53,11 @@ language sql stable as $$
     'unknown');
 $$;
 
+-- search_path includes `extensions` because Supabase installs pgcrypto's
+-- digest() there (not in public).
 create or replace function _gb_hash(p text) returns text
-language sql immutable as $$
+language sql immutable
+set search_path = public, extensions as $$
   select encode(digest(coalesce(p,'') || ':snapshot-guestbook-v1', 'sha256'), 'hex');
 $$;
 
