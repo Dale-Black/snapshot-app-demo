@@ -14,8 +14,6 @@
 --   • IPs and tokens are only ever stored as salted SHA-256 hashes.
 -- Idempotent — safe to re-run.
 
-create extension if not exists pgcrypto;
-
 create table if not exists demo_guestbook (
   id          bigint generated always as identity primary key,
   name        text not null default 'anon',
@@ -53,12 +51,11 @@ language sql stable as $$
     'unknown');
 $$;
 
--- search_path includes `extensions` because Supabase installs pgcrypto's
--- digest() there (not in public).
+-- Uses the BUILT-IN sha256()/convert_to() (in pg_catalog) — no pgcrypto, no
+-- extension, no schema/search_path issues.
 create or replace function _gb_hash(p text) returns text
-language sql immutable
-set search_path = public, extensions as $$
-  select encode(digest(coalesce(p,'') || ':snapshot-guestbook-v1', 'sha256'), 'hex');
+language sql immutable as $$
+  select encode(sha256(convert_to(coalesce(p,'') || ':snapshot-guestbook-v1', 'UTF8')), 'hex');
 $$;
 
 -- POST a message. Validates, rate-limits per IP, caps total rows. Returns new id.
