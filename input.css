@@ -1,0 +1,68 @@
+@import "tailwindcss";
+@source "./src/**/*.jl";
+
+@plugin "daisyui" { themes: all; }
+
+/* "aurora" — a fresh, distinct look (different from the Snapshot dashboard) */
+@plugin "daisyui/theme" {
+  name: "aurora";
+  default: true;
+  color-scheme: light;
+  --color-base-100: #ffffff;
+  --color-base-200: #f4f5fb;
+  --color-base-300: #e6e8f5;
+  --color-base-content: #1e2030;
+  --color-primary: #6d5efc;
+  --color-primary-content: #ffffff;
+  --color-secondary: #00bfae;
+  --color-secondary-content: #042e2a;
+  --color-accent: #ff7a59;
+  --color-accent-content: #2b0d05;
+  --color-neutral: #1e2030;
+  --color-neutral-content: #f4f5fb;
+  --color-success: #2bb673;
+  --color-warning: #f3a712;
+  --color-error: #ef4565;
+  --radius-selector: 1rem;
+  --radius-field: 0.6rem;
+  --radius-box: 1rem;
+}
+@plugin "daisyui/theme" {
+  name: "aurora-dark";
+  prefersdark: true;
+  color-scheme: dark;
+  --color-base-100: #1b1d2b;
+  --color-base-200: #15171f;
+  --color-base-300: #282b3d;
+  --color-base-content: #e7e9f5;
+  --color-primary: #8b7dff;
+  --color-primary-content: #0c0a1f;
+  --color-secondary: #2fd4c4;
+  --color-secondary-content: #042e2a;
+  --color-accent: #ff8d72;
+  --color-accent-content: #2b0d05;
+  --color-neutral: #e7e9f5;
+  --color-success: #34c785;
+  --color-warning: #f3a712;
+  --color-error: #ff6b85;
+  --radius-selector: 1rem;
+  --radius-field: 0.6rem;
+  --radius-box: 1rem;
+}
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+@layer base {
+  html, body { background: var(--color-base-200); color: var(--color-base-content); font-family: var(--font-sans); }
+  a { text-decoration: none; color: inherit; }
+  button:not(:disabled), [role="button"], label[for], summary { cursor: pointer; }
+}
+@layer components {
+  .a-card { box-shadow: 0 1px 0 0 color-mix(in oklab, var(--color-base-content) 8%, transparent), 0 12px 30px -12px color-mix(in oklab, var(--color-base-content) 22%, transparent); }
+  .a-hero { background: radial-gradient(120% 120% at 0% 0%, color-mix(in oklab, var(--color-primary) 16%, transparent), transparent 60%), radial-gradient(120% 120% at 100% 0%, color-mix(in oklab, var(--color-secondary) 14%, transparent), transparent 55%); }
+  .a-display { font-family: var(--font-display); letter-spacing: -0.02em; }
+  .a-mono { font-family: var(--font-mono); }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "snapshot-app-demo-css",
+  "private": true,
+  "devDependencies": { "@tailwindcss/cli": "^4.1", "daisyui": "^5.0.0" }
+}
