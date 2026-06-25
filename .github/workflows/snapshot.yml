@@ -1,4 +1,4 @@
-name: Snapshot — publish interactive notebooks
+name: Snapshot — build & publish
 on:
   push:
     branches: [main, master]
