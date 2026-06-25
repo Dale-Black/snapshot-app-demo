@@ -1,3 +1,5 @@
+const _BASE = get(ENV, "SNAPSHOT_BASE_PATH", "")
+
 function feature(icon, title, body)
     Div(:class => "a-card bg-base-100 rounded-box p-6 flex flex-col gap-3",
         RawHtml("""<div class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">$(icon)</div>"""),
@@ -14,8 +16,8 @@ function Index()
             P(:class => "mt-5 text-lg text-base-content/70 max-w-xl mx-auto leading-relaxed",
                 "This whole site is a Therapy app — interactive, with real data and live notebooks — built in GitHub and hosted on the edge by Snapshot. No server. No bill."),
             Div(:class => "mt-8 flex items-center justify-center gap-3",
-                A(:href => "/play", :class => "btn btn-primary", "See it run →"),
-                A(:href => "/guestbook", :class => "btn btn-ghost", "Try the database"))),
+                A(:href => "$(_BASE)/play", :class => "btn btn-primary", "See it run →"),
+                A(:href => "$(_BASE)/guestbook", :class => "btn btn-ghost", "Try the database"))),
         Div(:class => "grid sm:grid-cols-2 lg:grid-cols-4 gap-5",
             feature("⌁", "Interactive (WASM)", "Real Julia notebooks compiled to WebAssembly, running entirely in the visitor's browser."),
             feature("⛁", "Real data, free", "A live database with sign-in and persistence — straight from a static site, no backend to run."),
