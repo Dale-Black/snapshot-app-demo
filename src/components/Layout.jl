@@ -21,7 +21,7 @@ function Layout(children...; title="Therapy × Snapshot")
             Footer(:class => "border-t border-base-300",
                 Div(:class => "max-w-5xl mx-auto px-5 py-8 text-sm text-base-content/60 flex flex-wrap gap-3 justify-between items-center",
                     Span("Built with Therapy.jl · hosted free on the edge by Snapshot"),
-                    A(:href => "https://snapshot.djblack.workers.dev", :target => "_blank", :class => "link link-hover", "Snapshot ↗")))),
+                    A(:href => "https://snapshot.show", :target => "_blank", :class => "link link-hover", "Snapshot ↗")))),
         RawHtml("""<script>(function(){var b=document.getElementById('theme-toggle');if(b)b.addEventListener('click',function(){var c=document.documentElement.getAttribute('data-theme');var n=(c==='aurora-dark')?'aurora':'aurora-dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('demo-theme',n)}catch(e){}});})();</script>"""),
     )
 end

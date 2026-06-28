@@ -21,7 +21,7 @@ function About()
             P(:class => "text-base-content/80 leading-relaxed",
                 "It's the exact recipe behind Snapshot itself — a full dashboard with GitHub login and a database, running entirely on free tiers. Now it's yours: connect a repo and ship."),
             Div(:class => "mt-5 flex gap-3",
-                A(:href => "https://snapshot.djblack.workers.dev", :target => "_blank", :class => "btn btn-primary btn-sm", "Try Snapshot ↗"),
+                A(:href => "https://snapshot.show", :target => "_blank", :class => "btn btn-primary btn-sm", "Try Snapshot ↗"),
                 A(:href => "$(_BASE)/", :class => "btn btn-ghost btn-sm", "Back home"))))
 end
 About
