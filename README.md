@@ -1,15 +1,16 @@
 # Therapy × Snapshot Demo
 
-A live demo of what you can build **for free** with a [Therapy](https://github.com/GroupTherapyOrg/Therapy.jl)
-web app hosted on **[Snapshot](https://snapshot.show)**:
+A small [Therapy](https://github.com/GroupTherapyOrg/Therapy.jl) web app published
+with **[Snapshot](https://snapshot.show)**:
 
 - **Interactive pages** (WebAssembly, runs in the browser)
 - An **embedded live Julia notebook**
-- A **real database** (guestbook) called straight from a static site — no backend
-- All on Cloudflare's edge, all on free tiers
+- A **Supabase-backed guestbook** called directly from the static site
+- A GitHub Actions build published through Snapshot
 
-It's a static Therapy app (`julia app.jl build` → HTML), published to the edge by
-Snapshot. Connect a repo to Snapshot and ship your own.
+It is a static Therapy app (`julia app.jl build` → HTML). Supported interactive
+components execute in the browser; there is no continuously running Julia
+application process.
 
 ---
 
